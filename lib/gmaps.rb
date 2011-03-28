@@ -112,14 +112,11 @@ module Gmaps
       result = {'status' => 'OFFLINE'}
     end
     if result['status'] == "OK"
-      country = ''
-      result['results'][0]['address_components'].each do |address|
-        country = address['long_name'] if address['types'].include?("locality") and address['types'].include?("political")
-        break unless country.blank?
-      end
-      country
+      city = ''
+      result['results'][0]['address_components'].each{|address| city = address['long_name'] if address['types'].include?("locality") and address['types'].include?("political")}
+      city
     else
-      address
+      ''
     end
   end
 end

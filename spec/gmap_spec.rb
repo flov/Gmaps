@@ -1,6 +1,12 @@
-require 'spec_helper'
+$:.push File.join(File.dirname(__FILE__), '..', 'lib')
 
-describe 'gmaps.rb' do
+require 'CGI'
+require 'net/http'
+require 'JSON'
+require 'nokogiri'
+require 'gmaps'
+
+describe 'gmaps' do
   include Gmaps
   context 'country search' do
     it 'should return the correct country' do
@@ -18,14 +24,14 @@ describe 'gmaps.rb' do
     end
   end
 
-  context 'city_search' do
+  context 'city search' do
     it 'should return the correct city' do
       Gmaps.city('Barcelona, Paradis 3, 2 1').should == 'Barcelona'
       Gmaps.city('Barcelona').should == 'Barcelona'
     end
   end
 
-  context 'city_search' do
+  context 'get rotue of countries with distance' do
     it 'should route distance to country' do
       countries = Gmaps.countries('Lisbon', 'Paris')
       countries[0][0].should == 'Portugal'
